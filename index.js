@@ -24,9 +24,12 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const productcollection = client.db("productDB").collection("product");
     app.post("/newproduct", async (req, res) => {
       const newproduct = req.body;
       console.log(newproduct);
+      const result = await productcollection.insertOne(newproduct);
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
