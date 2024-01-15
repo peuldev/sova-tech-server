@@ -27,6 +27,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const productcollection = client.db("productDB").collection("product");
+    const devicecollection = client.db("productDB").collection("device");
 
     app.get("/newproduct/:id", async (req, res) => {
       const id = req.params.id;
@@ -37,6 +38,12 @@ async function run() {
 
     app.get("/newproduct", async (req, res) => {
       const cursor = productcollection.find();
+      const resut = await cursor.toArray();
+      res.send(resut);
+    });
+    
+    app.get("/device", async (req, res) => {
+      const cursor = devicecollection.find();
       const resut = await cursor.toArray();
       res.send(resut);
     });
