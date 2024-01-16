@@ -28,6 +28,7 @@ async function run() {
     await client.connect();
     const productcollection = client.db("productDB").collection("product");
     const devicecollection = client.db("productDB").collection("device");
+    const cartscollection = client.db("productDB").collection("carts");
 
     app.get("/newproduct/:id", async (req, res) => {
       const id = req.params.id;
@@ -51,6 +52,11 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await devicecollection.findOne(query);
+      res.send(result);
+    });
+    app.post("/carts", async (req, res) => {
+      const device = req.body;
+      const result = await cartscollection.insertOne(device);
       res.send(result);
     });
 
