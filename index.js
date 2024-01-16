@@ -41,11 +41,17 @@ async function run() {
       const resut = await cursor.toArray();
       res.send(resut);
     });
-    
+
     app.get("/device", async (req, res) => {
       const cursor = devicecollection.find();
       const resut = await cursor.toArray();
       res.send(resut);
+    });
+    app.get("/device/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await devicecollection.findOne(query);
+      res.send(result);
     });
 
     app.put("/newproduct/:id", async (req, res) => {
