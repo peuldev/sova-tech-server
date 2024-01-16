@@ -59,7 +59,6 @@ async function run() {
       const result = await cartscollection.insertOne(device);
       res.send(result);
     });
-
     app.put("/newproduct/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
