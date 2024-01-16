@@ -60,6 +60,12 @@ async function run() {
       const resut = await cursor.toArray();
       res.send(resut);
     });
+    app.delete("/carts/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await cartscollection.deleteOne(query);
+      res.send(result);
+    });
     app.post("/carts", async (req, res) => {
       const device = req.body;
       const result = await cartscollection.insertOne(device);
