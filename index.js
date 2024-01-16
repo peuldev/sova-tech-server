@@ -43,6 +43,7 @@ async function run() {
       res.send(resut);
     });
 
+    // load divice data
     app.get("/device", async (req, res) => {
       const cursor = devicecollection.find();
       const resut = await cursor.toArray();
@@ -53,6 +54,11 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const result = await devicecollection.findOne(query);
       res.send(result);
+    });
+    app.get("/carts", async (req, res) => {
+      const cursor = cartscollection.find();
+      const resut = await cursor.toArray();
+      res.send(resut);
     });
     app.post("/carts", async (req, res) => {
       const device = req.body;
